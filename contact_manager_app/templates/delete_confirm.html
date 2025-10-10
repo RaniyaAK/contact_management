@@ -1,0 +1,91 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block title %}Delete Contact{% endblock %}
+
+{% block content %}
+
+<style>
+/* --- BODY --- */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f5f2e7; /* sand/off-white background */
+    margin: 0;
+    padding: 0;
+}
+
+/* --- DELETE CONFIRMATION CARD --- */
+.delete-card {
+    max-width: 700px;
+    margin: 100px auto; /* space from top */
+    background: #fdfcf3; /* sand/off-white card */
+    padding: 40px 35px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.delete-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Heading */
+.delete-card h3 {
+    font-size: 24px;
+    color: #556b2f; /* olive heading, same as Contacts */
+    margin-bottom: 35px;
+}
+
+/* Buttons container */
+.delete-card .btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Cancel button */
+.delete-card .cancel-btn {
+    text-decoration: none;
+    background-color: #d9e3c4; /* light sand, like table alternate rows */
+    color: #556b2f; /* olive text */
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.2s ease;
+}
+.delete-card .cancel-btn:hover {
+    background-color: #c4d1a5; /* darker sand hover */
+}
+
+/* Delete button */
+.delete-card .delete-btn {
+    background-color: #b33a3a; /* darker olive, like add/edit buttons */
+    color: #fff;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease, transform 0.2s ease;
+}
+.delete-card .delete-btn:hover {
+    background-color: #556b2f; /* main olive hover */
+    transform: scale(1.05);
+}
+</style>
+
+<div class="delete-card">
+    <h3>Are you sure you want to delete <strong>{{ contact.name }}</strong>?</h3>
+    <form method="post">
+        {% csrf_token %}
+        <div class="btn-group">
+            <a href="{% url 'contacts' %}" class="cancel-btn">Cancel</a>
+            <button type="submit" class="delete-btn">Delete</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

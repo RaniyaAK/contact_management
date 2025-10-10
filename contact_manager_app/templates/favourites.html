@@ -1,0 +1,35 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block title %}Contacts{% endblock %}
+
+{% block content %}
+
+
+<div class="main-content">
+    <h1>Favourites</h1>
+   
+
+    {% if x %}
+        <div class="section">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contact in x %}
+                    <tr>
+                        <td>  <a href="{% url 'contact' contact.id %}">{{ contact.name }}</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>No contacts added yet.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

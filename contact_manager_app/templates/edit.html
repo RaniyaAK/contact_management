@@ -1,0 +1,138 @@
+{% extends "master.html" %}
+{% load static %}
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+
+<style>
+/* --- BODY --- */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f5f2e7; /* sand/off-white background */
+    margin: 0;
+    padding: 0;
+}
+
+/* --- FORM CARD --- */
+.tasks.container {
+    max-width: 600px;
+    margin: 100px auto; /* space from top */
+    background: #fdfcf3; /* sand/off-white card */
+    padding: 40px; /* equal padding all sides */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tasks.container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* --- HEADING --- */
+.tasks.container h1 {
+    text-align: center;
+    color: #556b2f; /* olive heading */
+    margin-bottom: 30px;
+    font-size: 26px;
+}
+
+/* --- INPUT FIELDS --- */
+.content.container {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.content.container input {
+    width: 100%;
+    padding: 12px 15px; /* equal padding inside input */
+    border: 1px solid #d9e3c4; /* soft border */
+    border-radius: 8px;
+    font-size: 15px;
+    box-sizing: border-box; /* ensures input fills width */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.content.container input:focus {
+    border-color: #6b8e23; /* olive accent */
+    box-shadow: 0 0 5px rgba(107, 142, 35, 0.3);
+    outline: none;
+}
+
+/* --- BUTTONS CONTAINER --- */
+.buttons.container {
+    display: flex;
+    justify-content: center; /* centered horizontally */
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* --- CANCEL BUTTON --- */
+.buttons.container a {
+    text-decoration: none;
+    background-color: #d9e3c4; /* light sand */
+    color: #556b2f; /* olive text */
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+.buttons.container a:hover {
+    background-color: #c4d1a5; /* darker sand */
+}
+
+/* --- SAVE BUTTON --- */
+.save_btn {
+    background-color: #6b8e23; /* darker olive */
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease, transform 0.2s ease;
+}
+.save_btn:hover {
+    background-color: #556b2f; /* main olive hover */
+    transform: scale(1.05);
+}
+
+</style>
+
+
+<div class="tasks container">
+    <h1>Edit</h1>
+
+    <form action="{% url 'edit' contact.id %}" method="post">
+        {% csrf_token %}
+
+        <div class="content container">
+            <input type="text" name="name" value="{{contact.name}}" required>
+        </div>
+
+        <div class="content container">
+            <input type="text" name="phone" value="{{contact.phone}}" required>
+        </div>
+
+        <div class="content container">
+            <input type="email" name="email" value="{{contact.email}}" required>
+        </div>
+
+        <div class="buttons container" style="margin-top:20px;">
+            <a href="{% url 'contacts' %}">Cancel</a>
+
+            <button type="submit" class="save_btn">Save</button>
+     
+    </div>
+
+
+    </form>
+
+    {% if contact %}
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

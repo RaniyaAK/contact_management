@@ -1,0 +1,233 @@
+{% extends "master.html" %}
+{% load static %}
+{% block title %}Contacts{% endblock %}
+
+{% block content %}
+<style>
+/* --- BODY --- */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f5f2e7; /* sand/off-white background */
+    margin: 0;
+    padding: 0;
+}
+
+/* --- TOPBAR --- */
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #556b2f; /* olive green */
+    color: #fff;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 20px;
+    height: 60px;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    gap: 15px;
+    box-sizing: border-box;
+}
+
+/* --- PROFILE CIRCLE --- */
+.profile-circle {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #f5f2e7; /* sand/off-white */
+    color: #556b2f; /* olive text */
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease;
+    position: relative;
+}
+.profile-circle:hover {
+    transform: scale(1.05);
+}
+
+/* --- PROFILE DROPDOWN --- */
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 55px;
+    background: #f5f2e7; /* sand/off-white */
+    color: #556b2f;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    min-width: 180px;
+    z-index: 100;
+    text-align: center;
+    padding: 10px 0;
+}
+.profile-dropdown p {
+    margin: 8px 0;
+    font-size: 14px;
+    font-weight: 500;
+}
+.profile-dropdown.show {
+    display: block;
+}
+
+/* --- LOGOUT BUTTON --- */
+.logout-link {
+    background-color: #d9e3c4; /* light sand */
+    color: #556b2f; /* olive */
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+.logout-link:hover {
+    background-color: #a2b478; /* slightly darker sand */
+}
+
+
+/* --- MAIN CONTENT --- */
+.main-content {
+    max-width: 900px;
+    margin: 100px auto 40px;
+    background: #fdfcf3; /* off-white card */
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.main-content h1 {
+    text-align: center;
+    color: #556b2f; /* olive heading */
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
+/* --- ADD CONTACT BUTTON --- */
+.add-contact-btn {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #6b8e23; /* darker olive */
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+.add-contact-btn:hover {
+    background-color: #556b2f; /* main olive */
+}
+
+/* --- TABLE --- */
+.section {
+    margin-top: 25px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+th, td {
+    border: 1px solid #d9e3c4; /* soft border */
+    padding: 12px;
+    text-align: center;
+    font-size: 15px;
+}
+th {
+    background-color: #556b2f; /* olive header */
+    color: #fff;
+}
+tr:nth-child(even) {
+    background-color: #f5f2e7; /* sand alternate rows */
+}
+
+/* --- EDIT & DELETE BUTTONS --- */
+.edit-btn, .delete-btn {
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 500;
+}
+.edit-btn {
+    background-color: #6b8e23; /* dark olive */
+}
+.edit-btn:hover {
+    background-color: #556b2f;
+}
+.delete-btn {
+    background-color: #b33a3a; /* red */
+}
+.delete-btn:hover {
+    background-color: #8b2a2a;
+}
+</style>
+
+<!-- Topbar -->
+<div class="topbar">
+    <div class="profile-circle" onclick="toggleProfile()">
+        {{ request.user.username|slice:":1"|upper }}
+        <div id="profileDropdown" class="profile-dropdown">
+            <p><strong>{{ request.user.username }}</strong></p>
+            <p>{{ request.user.email }}</p>
+        </div>
+    </div>
+    <a href="{% url 'logout' %}" class="logout-link">Logout</a>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <h1>Contacts</h1>
+    <a href="{% url 'add_contacts' %}" class="add-contact-btn">+ Add Contact</a>
+
+    {% if x %}
+    <div class="section">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contact in x %}
+                <tr>
+                    <td>{{ contact.name }}</td>
+                    <td>{{ contact.phone }}</td>
+                    <td>{{ contact.email }}</td>
+                    <td>
+                        <a href="{% url 'edit' contact.id %}" class="edit-btn">Edit</a>
+                        <a href="{% url 'delete' contact.id %}" class="delete-btn">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p style="text-align:center; color:#555;">No contacts added yet.</p>
+    {% endif %}
+</div>
+
+<script>
+function toggleProfile() {
+    var dropdown = document.getElementById("profileDropdown");
+    dropdown.classList.toggle("show");
+}
+
+window.onclick = function(event) {
+    var dropdown = document.getElementById("profileDropdown");
+    var circle = document.querySelector(".profile-circle");
+    if (!circle.contains(event.target) && !dropdown.contains(event.target)) {
+        dropdown.classList.remove("show");
+    }
+};
+</script>
+
+{% endblock %}

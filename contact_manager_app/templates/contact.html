@@ -1,0 +1,42 @@
+{% extends "master.html" %}
+{% load static %}
+{% block title %}Add Contacts{% endblock %}
+
+{% block content %}
+
+<div class="tasks container">
+    <h1>profile</h1>
+    <form action="{% url 'add_contacts' %}" method="post">
+        {% csrf_token %}
+
+        <!-- <div class="content container"> -->
+
+       <div class="content container">
+          <input type = "text" name="contact" value="{{contact.name}}">
+          <br><br>
+       </div>
+
+      
+       <div class="content container">
+          <input type = "text" name="contact" value="{{contact.phone}}">
+          <br><br>
+       </div>
+
+       <div class="content container">
+          <input type = "text" name="contact" value="{{contact.email}}">
+          <br><br>
+       </div>
+
+
+        <!-- </div> -->
+
+        <div class="buttons container">
+
+              <a href="{% url 'edit' contact.id %}" class="edit-btn">Edit</a>
+              <a href="{% url 'delete' contact.id %}" class="edit-btn">Delete</a>
+
+        </div>
+
+    </form>
+</div>
+{% endblock%}
