@@ -4,6 +4,7 @@
 
 {% block content %}
 <style>
+
 body, html {
     margin: 0;
     padding: 0;
@@ -11,7 +12,7 @@ body, html {
     background: #f5f6fa;
 }
 
-/* Sidebar */
+
 .sidebar {
     width: 220px;
     background-color:  #556b2f;
@@ -24,7 +25,6 @@ body, html {
     z-index: 50;
 }
 
-/* Profile icon centered */
 .profile-container {
     display: flex;
     flex-direction: column;
@@ -47,7 +47,7 @@ body, html {
     align-items: center;
 }
 
-/* Profile dropdown */
+
 .profile-dropdown {
     max-height: 0;
     opacity: 0;
@@ -84,10 +84,9 @@ body, html {
     border-top: 1px solid #ddd;
 }
 
-/* Logout button */
+
 .logout-link {
-    background-color: #d9e3c4;
-    color: #556b2f;
+    color: #556b2f; 
     padding: 8px 16px;
     text-decoration: none;
     border-radius: 8px;
@@ -96,10 +95,10 @@ body, html {
     white-space: nowrap;
 }
 .logout-link:hover {
-    background-color: #c4d1a5;
+    transform: scale(1.07);
+    background-color: #eee4e4;
 }
 
-/* Sidebar links */
 .sidebar a {
     display: block;
     color: white;
@@ -117,7 +116,7 @@ body, html {
     padding-left: 30px;
 }
 
-/* Topbar */
+
 .topbar {
     position: fixed;
     left: 220px;
@@ -135,13 +134,13 @@ body, html {
     z-index: 90;
 }
 
-/* Main content */
+
 .main-content {
     margin-left: 220px;
     padding: 80px 40px 20px 40px;
 }
 
-/* Table */
+
 .section {
     background: white;
     border-radius: 10px;
@@ -174,7 +173,7 @@ tr:hover {
     background-color: #eef4ff;
 }
 
-/* Buttons */
+
 .edit-btn, .delete-btn {
     text-decoration: none;
     padding: 6px 12px;
@@ -192,7 +191,7 @@ tr:hover {
 }
 </style>
 
-<!-- Sidebar -->
+
 <div class="sidebar">
     <div class="profile-container">
         <div class="profile-icon" onclick="toggleProfile()">
@@ -208,15 +207,15 @@ tr:hover {
     <a href="{% url 'admin_dashboard' %}">Dashboard</a>
     <a href="{% url 'manage_users' %}" class="active">Manage Users</a>
     <a href="{% url 'manage_contacts' %}">Manage Contacts</a>
-    <a href="#">Settings</a>
+    <!-- <a href="#">Settings</a> -->
 </div>
 
-<!-- Topbar -->
+
 <div class="topbar">
     Manage Users
 </div>
 
-<!-- Main Content -->
+
 <div class="main-content">
     <h1 style="text-align:center; color:#556b2f; margin-bottom:20px;">Users</h1>
 

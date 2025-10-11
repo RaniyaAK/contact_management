@@ -64,7 +64,7 @@ input:focus, select:focus {
 .login-register-btn {
     display: block;
     width: 100%;
-    background-color:  yellowgreen;
+    background-color: #6b8e23 ;
     color: white;
     padding: 10px;
     border: none;
@@ -76,11 +76,12 @@ input:focus, select:focus {
 }
 
 .login-register-btn:hover {
-    background-color: yellowgreen;
+    background-color:#556b2f;
+   
 }
 
 .login-register-link a {
-    color: yellowgreen;
+    color: #6b8e23;
     text-decoration: none;
 }
 
@@ -90,7 +91,7 @@ input:focus, select:focus {
 
 input:focus, select:focus {
     outline: none;
-    border-color: yellowgreen;
+    border-color: #6b8e23;
     box-shadow: 0 0 8px rgba(190, 19, 190, 0.4);
     transition: all 0.3s ease-in-out;
 }

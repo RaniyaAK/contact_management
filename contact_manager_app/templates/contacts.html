@@ -3,22 +3,22 @@
 {% block title %}Contacts{% endblock %}
 
 {% block content %}
+
 <style>
-/* --- BODY --- */
+
 body {
     font-family: 'Segoe UI', sans-serif;
-    background-color: #f5f2e7; /* sand/off-white background */
+    background-color: #f5f2e7;
     margin: 0;
     padding: 0;
 }
 
-/* --- TOPBAR --- */
 .topbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #556b2f; /* olive green */
+    background-color: #556b2f;
     color: #fff;
     display: flex;
     justify-content: flex-end;
@@ -31,13 +31,13 @@ body {
     box-sizing: border-box;
 }
 
-/* --- PROFILE CIRCLE --- */
+
 .profile-circle {
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    background-color: #f5f2e7; /* sand/off-white */
-    color: #556b2f; /* olive text */
+    background-color: #f5f2e7; 
+    color: #556b2f; 
     font-size: 20px;
     font-weight: bold;
     cursor: pointer;
@@ -51,13 +51,12 @@ body {
     transform: scale(1.05);
 }
 
-/* --- PROFILE DROPDOWN --- */
 .profile-dropdown {
     display: none;
     position: absolute;
     right: 0;
     top: 55px;
-    background: #f5f2e7; /* sand/off-white */
+    background: #f5f2e7; 
     color: #556b2f;
     border-radius: 8px;
     box-shadow: 0 3px 10px rgba(0,0,0,0.2);
@@ -75,10 +74,10 @@ body {
     display: block;
 }
 
-/* --- LOGOUT BUTTON --- */
+
 .logout-link {
-    background-color: #d9e3c4; /* light sand */
-    color: #556b2f; /* olive */
+    background-color: #f5f2e7;
+    color: #556b2f; 
     padding: 8px 16px;
     text-decoration: none;
     border-radius: 8px;
@@ -87,31 +86,31 @@ body {
     white-space: nowrap;
 }
 .logout-link:hover {
-    background-color: #a2b478; /* slightly darker sand */
+    transform: scale(1.07);
+    background-color: #eee4e4;
 }
 
 
-/* --- MAIN CONTENT --- */
 .main-content {
     max-width: 900px;
     margin: 100px auto 40px;
-    background: #fdfcf3; /* off-white card */
+    background: #fdfcf3; 
     border-radius: 10px;
     padding: 30px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 .main-content h1 {
     text-align: center;
-    color: #556b2f; /* olive heading */
+    color: #556b2f;
     font-size: 26px;
     margin-bottom: 20px;
 }
 
-/* --- ADD CONTACT BUTTON --- */
+
 .add-contact-btn {
     display: inline-block;
     text-decoration: none;
-    background-color: #6b8e23; /* darker olive */
+    background-color: #6b8e23;
     color: #fff;
     padding: 8px 16px;
     border-radius: 5px;
@@ -119,33 +118,34 @@ body {
     transition: background-color 0.2s ease;
 }
 .add-contact-btn:hover {
-    background-color: #556b2f; /* main olive */
+    background-color: #556b2f;
 }
 
-/* --- TABLE --- */
+
 .section {
     margin-top: 25px;
 }
+
+
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
 }
 th, td {
-    border: 1px solid #d9e3c4; /* soft border */
+    border: 1px solid #d9e3c4; 
     padding: 12px;
     text-align: center;
     font-size: 15px;
 }
 th {
-    background-color: #556b2f; /* olive header */
+    background-color: #556b2f;
     color: #fff;
 }
 tr:nth-child(even) {
-    background-color: #f5f2e7; /* sand alternate rows */
+    background-color: #f5f2e7; 
 }
 
-/* --- EDIT & DELETE BUTTONS --- */
 .edit-btn, .delete-btn {
     text-decoration: none;
     padding: 6px 12px;
@@ -153,21 +153,27 @@ tr:nth-child(even) {
     color: #fff;
     font-weight: 500;
 }
+tr:hover{
+    background-color:#e2e6d5 ;
+}
+
+
 .edit-btn {
-    background-color: #6b8e23; /* dark olive */
+    background-color: #6b8e23; 
 }
 .edit-btn:hover {
     background-color: #556b2f;
 }
 .delete-btn {
-    background-color: #b33a3a; /* red */
+    background-color: #b33a3a; 
 }
 .delete-btn:hover {
     background-color: #8b2a2a;
 }
+
 </style>
 
-<!-- Topbar -->
+
 <div class="topbar">
     <div class="profile-circle" onclick="toggleProfile()">
         {{ request.user.username|slice:":1"|upper }}
@@ -179,12 +185,16 @@ tr:nth-child(even) {
     <a href="{% url 'logout' %}" class="logout-link">Logout</a>
 </div>
 
-<!-- Main Content -->
+
 <div class="main-content">
+
     <h1>Contacts</h1>
+
     <a href="{% url 'add_contacts' %}" class="add-contact-btn">+ Add Contact</a>
 
+
     {% if x %}
+
     <div class="section">
         <table>
             <thead>
@@ -210,10 +220,14 @@ tr:nth-child(even) {
             </tbody>
         </table>
     </div>
+
+
     {% else %}
     <p style="text-align:center; color:#555;">No contacts added yet.</p>
     {% endif %}
+
 </div>
+
 
 <script>
 function toggleProfile() {
