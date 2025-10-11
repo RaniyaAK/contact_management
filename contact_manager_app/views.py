@@ -147,16 +147,14 @@ def manage_contacts_delete(request, id):
 
 @login_required
 def admin_dashboard(request):
-    users_count = User.objects.count()
+    users_count =  User.objects.filter(is_superuser=False).count()
     contacts_count = Profile.objects.count()
-    users_count_with_admin = Profile.objects.filter(user__is_superuser=True).count()
+    users_count_with_admin = User.objects.count() 
     return render(request, 'admin_dashboard.html',{
         'users_count': users_count,
         'contacts_count': contacts_count,
         'users_count_with_admin':users_count_with_admin
     })
-
-
 
 
 def user_logout(request):
