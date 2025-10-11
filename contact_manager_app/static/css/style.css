@@ -45,11 +45,11 @@ input, select {
     outline: none;
     transition: border 0.3s, box-shadow 0.3s;
 }
-
 input:focus, select:focus {
-    border-color: rgb(190, 19, 190);
-    box-shadow: 0 0 5px rgba(190, 19, 190, 0.5);
+    border-color: #556b2f;
+    box-shadow: 0 0 5px rgba(85, 107, 47, 0.5); 
 }
+
 
 .role-dropdown {
     background-color: #fff;
@@ -92,7 +92,7 @@ input:focus, select:focus {
 input:focus, select:focus {
     outline: none;
     border-color: #6b8e23;
-    box-shadow: 0 0 8px rgba(190, 19, 190, 0.4);
+    box-shadow: 0 0 5px rgba(85, 107, 47, 0.5); 
     transition: all 0.3s ease-in-out;
 }
 
@@ -109,6 +109,11 @@ input {
     margin-top: 15px;
     font-size: 16px;
 }
+
+
+
+
+
 
 
 

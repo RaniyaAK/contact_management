@@ -19,13 +19,12 @@
         <form action="{% url 'login' %}" method="post" novalidate>
             {% csrf_token %}
 
-            <!-- Row 1: Username -->
             <div class="input-group">
                 <label for="id_username">Username:</label>
                 {{ form.username }}
             </div>
 
-            <!-- Row 2: Password -->
+          
             <div class="input-group">
                 <label for="id_password">Password:</label>
                 {{ form.password }}
@@ -41,7 +40,7 @@
         </span>
     </div>
 
-    <!-- ✅ Admin Credentials Box -->
+   
     <div class="admin-box">
         <h3>Admin Login Details</h3>
         <p><strong>Username:</strong> Raniya</p>
@@ -50,7 +49,7 @@
 </div>
 
 <style>
-/* Center everything */
+
 .login-page-container {
     display: flex;
     flex-direction: column;
@@ -59,7 +58,7 @@
     min-height: 90vh;
 }
 
-/* Login form box */
+
 .login-register-box {
     background: #fff;
     padding: 30px 40px;
@@ -69,7 +68,7 @@
     text-align: center;
 }
 
-/* Input groups in two rows */
+
 .input-group {
     display: flex;
     flex-direction: column;
@@ -77,7 +76,7 @@
     margin-bottom: 15px;
 }
 
-/* Label + input styling */
+
 .input-group label {
     font-weight: 600;
     color: #333;
@@ -92,7 +91,7 @@
     font-size: 14px;
 }
 
-/* Admin credentials box */
+
 .admin-box {
     margin-top: 20px;
     background-color: #f5f5f5;
@@ -115,4 +114,5 @@
     font-size: 15px;
 }
 </style>
+
 {% endblock %}
