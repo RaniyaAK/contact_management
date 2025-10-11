@@ -4,6 +4,77 @@
 
 {% block content %}
 
+
+<div class="topbar">
+    <div class="profile-circle" onclick="toggleProfile()">
+        {{ request.user.username|slice:":1"|upper }}
+        <div id="profileDropdown" class="profile-dropdown">
+            <p><strong>{{ request.user.username }}</strong></p>
+            <p>{{ request.user.email }}</p>
+        </div>
+    </div>
+    <a href="{% url 'logout' %}" class="logout-link">Logout</a>
+</div>
+
+
+<div class="main-content">
+
+    <h1>Contacts</h1>
+
+    <a href="{% url 'add_contacts' %}" class="add-contact-btn">+ Add Contact</a>
+
+
+    {% if x %}
+
+    <div class="section">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contact in x %}
+                <tr>
+                    <td>{{ contact.name }}</td>
+                    <td>{{ contact.phone }}</td>
+                    <td>{{ contact.email }}</td>
+                    <td>
+                        <a href="{% url 'edit' contact.id %}" class="edit-btn">Edit</a>
+                        <a href="{% url 'delete' contact.id %}" class="delete-btn">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+    {% else %}
+    <p style="text-align:center; color:#555;">No contacts added yet.</p>
+    {% endif %}
+
+</div>
+
+
+<script>
+function toggleProfile() {
+    var dropdown = document.getElementById("profileDropdown");
+    dropdown.classList.toggle("show");
+}
+
+window.onclick = function(event) {
+    var dropdown = document.getElementById("profileDropdown");
+    var circle = document.querySelector(".profile-circle");
+    if (!circle.contains(event.target) && !dropdown.contains(event.target)) {
+        dropdown.classList.remove("show");
+    }
+};
+</script>
+
 <style>
 
 body {
@@ -173,75 +244,5 @@ tr:hover{
 
 </style>
 
-
-<div class="topbar">
-    <div class="profile-circle" onclick="toggleProfile()">
-        {{ request.user.username|slice:":1"|upper }}
-        <div id="profileDropdown" class="profile-dropdown">
-            <p><strong>{{ request.user.username }}</strong></p>
-            <p>{{ request.user.email }}</p>
-        </div>
-    </div>
-    <a href="{% url 'logout' %}" class="logout-link">Logout</a>
-</div>
-
-
-<div class="main-content">
-
-    <h1>Contacts</h1>
-
-    <a href="{% url 'add_contacts' %}" class="add-contact-btn">+ Add Contact</a>
-
-
-    {% if x %}
-
-    <div class="section">
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for contact in x %}
-                <tr>
-                    <td>{{ contact.name }}</td>
-                    <td>{{ contact.phone }}</td>
-                    <td>{{ contact.email }}</td>
-                    <td>
-                        <a href="{% url 'edit' contact.id %}" class="edit-btn">Edit</a>
-                        <a href="{% url 'delete' contact.id %}" class="delete-btn">Delete</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-
-
-    {% else %}
-    <p style="text-align:center; color:#555;">No contacts added yet.</p>
-    {% endif %}
-
-</div>
-
-
-<script>
-function toggleProfile() {
-    var dropdown = document.getElementById("profileDropdown");
-    dropdown.classList.toggle("show");
-}
-
-window.onclick = function(event) {
-    var dropdown = document.getElementById("profileDropdown");
-    var circle = document.querySelector(".profile-circle");
-    if (!circle.contains(event.target) && !dropdown.contains(event.target)) {
-        dropdown.classList.remove("show");
-    }
-};
-</script>
 
 {% endblock %}

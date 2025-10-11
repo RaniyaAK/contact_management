@@ -3,6 +3,70 @@
 {% block title %}Admin Dashboard{% endblock %}
 
 {% block content %}
+
+<div class="sidebar">
+    <div class="profile-container">
+        <div class="profile-icon" onclick="toggleProfile()">
+            {{ request.user.username|slice:":1"|upper }}
+        </div>
+        <div class="profile-dropdown" id="profileDropdown">
+            <p><strong>{{ request.user.username }}</strong></p>
+            <p>{{ request.user.email }}</p>
+            <a href="{% url 'logout' %}" class="logout-link">Logout</a>
+        </div>
+    </div>
+
+    <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+    <a href="{% url 'manage_users' %}">Manage Users</a>
+    <a href="{% url 'manage_contacts' %}">Manage Contacts</a>
+   
+</div>
+
+
+<div class="topbar">
+    Admin Dashboard
+</div>
+
+
+<div class="main-content">
+    <div class="cards">
+
+        <div class="card">
+            <h2>{{ users_count_with_admin }}</h2>
+            <p>Total Users</p>
+        </div>
+     
+        <div class="card">
+            <h2>{{ contacts_count }}</h2>
+            <p>Total Contacts</p>
+        </div>
+     
+        <div class="card">
+            <h2>{{ users_count }}</h2>
+            <p>Non Admin Users</p>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+
+function toggleProfile() {
+    var dropdown = document.getElementById("profileDropdown");
+    dropdown.classList.toggle("show");
+}
+
+window.onclick = function(event) {
+    var dropdown = document.getElementById("profileDropdown");
+    var icon = document.querySelector(".profile-icon");
+    if (!icon.contains(event.target) && !dropdown.contains(event.target)) {
+        dropdown.classList.remove("show");
+    }
+};
+</script>
+
+
 <style>
 
 body, html {
@@ -220,65 +284,5 @@ tr:hover {
 }
 
 </style>
-
-
-<div class="sidebar">
-    <div class="profile-container">
-        <div class="profile-icon" onclick="toggleProfile()">
-            {{ request.user.username|slice:":1"|upper }}
-        </div>
-        <div class="profile-dropdown" id="profileDropdown">
-            <p><strong>{{ request.user.username }}</strong></p>
-            <p>{{ request.user.email }}</p>
-            <a href="{% url 'logout' %}" class="logout-link">Logout</a>
-        </div>
-    </div>
-
-    <a href="{% url 'admin_dashboard' %}">Dashboard</a>
-    <a href="{% url 'manage_users' %}">Manage Users</a>
-    <a href="{% url 'manage_contacts' %}">Manage Contacts</a>
-   
-</div>
-
-
-<div class="topbar">
-    Admin Dashboard
-</div>
-
-
-<div class="main-content">
-    <div class="cards">
-        <div class="card">
-            <h2>{{ users_count }}</h2>
-            <p>Total Users</p>
-        </div>
-        <div class="card">
-            <h2>{{ contacts_count }}</h2>
-            <p>Total Contacts</p>
-        </div>
-        <div class="card">
-            <h2>{{ users_count_with_admin }}</h2>
-            <p>Total Users with Admin</p>
-        </div>
-    </div>
-
-</div>
-
-
-<script>
-
-function toggleProfile() {
-    var dropdown = document.getElementById("profileDropdown");
-    dropdown.classList.toggle("show");
-}
-
-window.onclick = function(event) {
-    var dropdown = document.getElementById("profileDropdown");
-    var icon = document.querySelector(".profile-icon");
-    if (!icon.contains(event.target) && !dropdown.contains(event.target)) {
-        dropdown.classList.remove("show");
-    }
-};
-</script>
 
 {% endblock %}
