@@ -51,6 +51,17 @@ def add_contacts(request):
         return redirect('contacts')
     return render(request, 'add_contacts.html')
 
+
+def manage_contacts(request):
+    contacts = Profile.objects.select_related('user').all()
+    return render(request, 'manage_contacts.html', {'contacts': contacts})
+
+def manage_users(request):
+    users = User.objects.all()
+    return render(request, 'admin_manage_users.html', {'users': users})
+
+
+
 @login_required
 def contact(request, id):
     contact = get_object_or_404(Profile, id=id)
@@ -66,7 +77,9 @@ def edit(request, id):
         contact.email = request.POST.get("email")
         contact.save()
         return redirect("contacts")
-    return render(request, "edit.html", {"contact": contact})
+    return render(request, "edit.html", {"contact": contact,"cancel_url": "contacts" })
+
+
 
 @login_required
 def delete(request, id):
@@ -74,16 +87,77 @@ def delete(request, id):
     if request.method == "POST":
         contact.delete()
         return redirect("contacts")
-    return render(request, "delete_confirm.html", {"contact": contact})
+    return render(request, "delete_confirm.html", {"contact": contact,"cancel_url": "contacts"})
 
 
-# @login_required
-# def user_dashboard(request):
-#     return render(request, 'user_dashboard.html')
+def manage_users(request):
+    users = User.objects.all()
+    return render(request, 'manage_users.html', {
+        'users': users,
+        'cancel_url': 'manage_users',  # redirect if Cancel is clicked
+    })
+
+
+@login_required
+def manage_users_delete(request,id):
+    user = get_object_or_404(User, id=id)
+    if request.method == "POST":
+        user.delete()
+        return redirect("manage_users")
+    return render(request, "manage_users_delete.html", {"user": user})
+
+@login_required
+def manage_users_edit(request, id):
+    user = get_object_or_404(User, id=id)
+    if request.method == "POST":
+        user.username = request.POST.get("name")
+        User.phone = request.POST.get("phone")
+        user.email = request.POST.get("email")
+        user.save()
+        return redirect("manage_users")
+    return render(request, "manage_users_edit.html", {"user": user})
+
+@login_required
+def manage_contacts(request):
+    contacts = Profile.objects.select_related('user').all()
+    return render(request, 'manage_contacts.html', {'contacts': contacts})
+
+
+@login_required
+def manage_contacts_edit(request, id):
+    contact = get_object_or_404(Profile, id=id)
+    if request.method == "POST":
+        contact.name = request.POST.get("name")
+        contact.phone = request.POST.get("phone")
+        contact.email = request.POST.get("email")
+        contact.save()
+        return redirect("manage_contacts")
+    return render(request, "manage_contacts_edit.html", {"contact": contact,"cancel_url": "contacts" })
+
+
+@login_required
+def manage_contacts_delete(request, id):
+    contact = get_object_or_404(Profile, id=id)
+    if request.method == "POST":
+        contact.delete()
+        return redirect("manage_contacts")
+    return render(request, "manage_contacts_delete.html", {"contact": contact,"cancel_url": "contacts"})
+
+
 
 @login_required
 def admin_dashboard(request):
-    return render(request, 'admin_dashboard.html')
+    users_count = User.objects.count()
+    contacts_count = Profile.objects.count()
+    users_count_with_admin = Profile.objects.filter(user__is_superuser=True).count()
+    return render(request, 'admin_dashboard.html',{
+        'users_count': users_count,
+        'contacts_count': contacts_count,
+        'users_count_with_admin':users_count_with_admin
+    })
+
+
+
 
 def user_logout(request):
     logout(request)

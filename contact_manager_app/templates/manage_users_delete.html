@@ -78,15 +78,15 @@ body {
 </style>
 
 <div class="delete-card">
-    <h3>Are you sure you want to delete <strong>{{ contact.name }}</strong>?</h3>
+    <h3>Are you sure you want to delete <strong>{{ user.username }}</strong>?</h3>
     <form method="post">
         {% csrf_token %}
         <div class="btn-group">
-            <a href="{% url cancel_url %}">Cancel</a>
+            <a href="{% url 'manage_users' %}">Cancel</a>
+           
             <button type="submit" class="delete-btn">Delete</button>
         </div>
     </form>
-
 </div>
 
 {% endblock %}

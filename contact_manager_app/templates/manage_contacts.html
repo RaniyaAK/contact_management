@@ -1,6 +1,7 @@
 {% extends "master.html" %}
 {% load static %}
-{% block title %}Admin Dashboard{% endblock %}
+
+{% block title %}Manage Contacts{% endblock %}
 
 {% block content %}
 <style>
@@ -11,10 +12,10 @@ body, html {
     background: #f5f6fa;
 }
 
-/* Sidebar */
+/* --- SIDEBAR --- */
 .sidebar {
     width: 220px;
-    background-color:  #556b2f;
+    background-color:  #556b2f; /* olive */
     color: white;
     position: fixed;
     top: 0;
@@ -24,7 +25,6 @@ body, html {
     z-index: 50;
 }
 
-/* Profile icon centered */
 .profile-container {
     display: flex;
     flex-direction: column;
@@ -37,8 +37,8 @@ body, html {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: #f5f2e7; /* sand/off-white */
-    color: #556b2f; /* olive text */
+    background-color: #f5f2e7;
+    color: #556b2f;
     font-size: 20px;
     font-weight: bold;
     cursor: pointer;
@@ -47,7 +47,6 @@ body, html {
     align-items: center;
 }
 
-/* Profile dropdown */
 .profile-dropdown {
     max-height: 0;
     opacity: 0;
@@ -82,13 +81,12 @@ body, html {
     padding: 10px 15px;
     text-decoration: none;
     border-top: 1px solid #ddd;
+    color: #2f3640;
 }
 
-/* Grey Logout link */
-/* --- LOGOUT BUTTON --- */
 .logout-link {
-    background-color: #d9e3c4; /* light sand */
-    color: #556b2f; /* olive */
+    background-color: #d9e3c4;
+    color: #556b2f;
     padding: 8px 16px;
     text-decoration: none;
     border-radius: 8px;
@@ -97,10 +95,9 @@ body, html {
     white-space: nowrap;
 }
 .logout-link:hover {
-    background-color: #c4d1a5; /* slightly darker sand */
+    background-color: #a2b478;
 }
 
-/* Sidebar nav links */
 .sidebar a {
     display: block;
     color: white;
@@ -119,14 +116,19 @@ body, html {
     padding-left: 30px;
 }
 
-/* Topbar */
+.sidebar a.active {
+    background-color: #8aa34c;
+    padding-left: 30px;
+}
+
+/* --- TOPBAR --- */
 .topbar {
     position: fixed;
-    left: 220px; /* sidebar width */
+    left: 220px;
     right: 0;
     top: 0;
     height: 60px;
-    background-color: #556b2f; /* olive green */
+    background-color: #556b2f;
     color: #fff;
     display: flex;
     align-items: center;
@@ -137,59 +139,32 @@ body, html {
     z-index: 90;
 }
 
-/* Main content */
+/* --- MAIN CONTENT --- */
 .main-content {
-    margin-left: 220px; /* sidebar width */
-    padding: 80px 40px 20px 40px; /* top padding accounts for topbar */
-}
-
-/* Stat Cards */
-.cards {
+    margin-left: 220px;
+    padding: 80px 40px 40px 40px;
     display: flex;
-    flex-wrap: wrap;
-    gap: 25px;
-    margin-bottom: 40px;
+    flex-direction: column;
+    align-items: center;
 }
 
-.card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    padding: 25px 40px;
-    text-align: center;
-    width: 220px;
-    transition: transform 0.2s;
-}
-
-.card:hover {
-    transform: scale(1.05);
-}
-
-.card h2 {
-    margin: 0;
-    font-size: 2em;
-    color:#556b2f;
-}
-
-.card p {
-    margin: 8px 0 0;
-    color: #555;
-    font-weight: 500;
-}
-
-/* Tables */
+/* --- SECTION & TABLE --- */
 .section {
-    margin-top: 40px;
-    background: white;
+    width: 100%;
+    max-width: 900px;
+    background: #fdfcf3; /* off-white card */
     border-radius: 10px;
     padding: 20px 30px;
     box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .section h2 {
-    color: #2f3640;
+    color: #556b2f; /* olive heading */
     margin-bottom: 15px;
-    border-bottom: 3px solid #40739e;
+    border-bottom: 3px solid #556b2f;
     display: inline-block;
     padding-bottom: 5px;
 }
@@ -201,31 +176,51 @@ table {
 }
 
 th, td {
-    border: 1px solid #ddd;
+    border: 1px solid #d9e3c4;
     padding: 12px;
     text-align: center;
     font-size: 15px;
 }
 
 th {
-    background: #40739e;
+    background: #556b2f; /* olive header */
     color: white;
 }
 
 tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: #f5f2e7;
 }
 
 tr:hover {
-    background-color: #eef4ff;
+    background-color: #e2e6d5;
 }
-.profile-dropdown a {
-    color:#2f3640;
+
+/* --- EDIT & DELETE BUTTONS --- */
+.edit-btn, .delete-btn {
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 500;
+}
+
+.edit-btn {
+    background-color: #6b8e23;
+}
+.edit-btn:hover {
+    background-color: #556b2f;
+}
+
+.delete-btn {
+    background-color: #b33a3a;
+}
+.delete-btn:hover {
+    background-color: #8b2a2a;
 }
 
 </style>
 
-<!-- Sidebar -->
+<!-- SIDEBAR -->
 <div class="sidebar">
     <div class="profile-container">
         <div class="profile-icon" onclick="toggleProfile()">
@@ -240,42 +235,59 @@ tr:hover {
 
     <a href="{% url 'admin_dashboard' %}">Dashboard</a>
     <a href="{% url 'manage_users' %}">Manage Users</a>
-    <a href="{% url 'manage_contacts' %}">Manage Contacts</a>
+    <a href="{% url 'manage_contacts' %}" class="active">Manage Contacts</a>
     <a href="#">Settings</a>
 </div>
 
-<!-- Topbar -->
+<!-- TOPBAR -->
 <div class="topbar">
-    Admin Dashboard
+    Manage Contacts
 </div>
 
-<!-- Main Content -->
+<!-- MAIN CONTENT -->
 <div class="main-content">
-    <div class="cards">
-        <div class="card">
-            <h2>{{ users_count }}</h2>
-            <p>Total Users</p>
-        </div>
-        <div class="card">
-            <h2>{{ contacts_count }}</h2>
-            <p>Total Contacts</p>
-        </div>
-        <div class="card">
-            <h2>{{ users_count_with_admin }}</h2>
-            <p>Total Contacts</p>
-        </div>
+
+    <h1 style="text-align:center; color:#556b2f; margin-bottom:20px;">Contacts</h1>
+
+    {% if contacts %}
+    <div class="section">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Added By</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contact in contacts %}
+                <tr>
+                    <td>{{ contact.name }}</td>
+                    <td>{{ contact.phone }}</td>
+                    <td>{{ contact.email }}</td>
+                    <td>{{ contact.user.username }}</td>
+                    <td>
+                        <a href="{% url 'edit' contact.id %}" class="edit-btn">Edit</a>
+                        <a href="{% url 'delete' contact.id %}" class="delete-btn">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+    {% else %}
+    <p style="text-align:center; color:#555;">No contacts added yet.</p>
+    {% endif %}
 
 </div>
-
-
 
 <script>
 function toggleProfile() {
     var dropdown = document.getElementById("profileDropdown");
     dropdown.classList.toggle("show");
 }
-
 window.onclick = function(event) {
     var dropdown = document.getElementById("profileDropdown");
     var icon = document.querySelector(".profile-icon");
