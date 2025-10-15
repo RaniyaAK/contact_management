@@ -1,8 +1,51 @@
 {% extends "master.html" %}
+
 {% load static %}
+
 {% block title %}Add Contacts{% endblock %}
 
 {% block content %}
+
+
+<!-- Main content -->
+<div class="add-contact-card">
+    <h1>Add contact</h1>
+    <form action="{% url 'add_contacts' %}" method="post">
+        {% csrf_token %}
+        <div class="content container">
+            <input type="text" name="name" placeholder="Name" required>
+        </div>
+
+        <div class="content container">
+            <input type="text" name="phone" placeholder="Phone" required>
+        </div>
+
+        <div class="content container">
+            <input type="email" name="email" placeholder="Email">
+        </div>
+
+        <div class="buttons container">
+            <button class="cancel_btn" type="submit">Cancel</button>
+            <button type="submit" class="save_btn">Save</button>
+        </div>
+    </form>
+</div>
+
+<script>
+function toggleProfile() {
+    var dropdown = document.getElementById("profileDropdown");
+    dropdown.classList.toggle("show");
+}
+
+window.onclick = function(event) {
+    var dropdown = document.getElementById("profileDropdown");
+    var icon = document.querySelector(".profile-icon");
+    if (!icon.contains(event.target) && !dropdown.contains(event.target)) {
+        dropdown.classList.remove("show");
+    }
+};
+</script>
+
 <style>
 /* --- BODY --- */
 body, html {
@@ -91,42 +134,4 @@ body, html {
 }
 </style>
 
-<!-- Main content -->
-<div class="add-contact-card">
-    <h1>Add contact</h1>
-    <form action="{% url 'add_contacts' %}" method="post">
-        {% csrf_token %}
-        <div class="content container">
-            <input type="text" name="name" placeholder="Name" required>
-        </div>
-
-        <div class="content container">
-            <input type="text" name="phone" placeholder="Phone" required>
-        </div>
-
-        <div class="content container">
-            <input type="email" name="email" placeholder="Email">
-        </div>
-
-        <div class="buttons container">
-            <button class="cancel_btn" type="submit">Cancel</button>
-            <button type="submit" class="save_btn">Save</button>
-        </div>
-    </form>
-</div>
-
-<script>
-function toggleProfile() {
-    var dropdown = document.getElementById("profileDropdown");
-    dropdown.classList.toggle("show");
-}
-
-window.onclick = function(event) {
-    var dropdown = document.getElementById("profileDropdown");
-    var icon = document.querySelector(".profile-icon");
-    if (!icon.contains(event.target) && !dropdown.contains(event.target)) {
-        dropdown.classList.remove("show");
-    }
-};
-</script>
 {% endblock %}

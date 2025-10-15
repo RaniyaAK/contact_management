@@ -41,6 +41,7 @@ def contacts(request):
     x = Profile.objects.filter(user=request.user)  # x instead of contacts
     return render(request, 'contacts.html', {'x': x})
 
+
 @login_required
 def add_contacts(request):
     if request.method == "POST":
@@ -52,14 +53,16 @@ def add_contacts(request):
     return render(request, 'add_contacts.html')
 
 
+@login_required
 def manage_contacts(request):
     contacts = Profile.objects.select_related('user').all()
     return render(request, 'manage_contacts.html', {'contacts': contacts})
 
+
+@login_required
 def manage_users(request):
     users = User.objects.all()
     return render(request, 'admin_manage_users.html', {'users': users})
-
 
 
 @login_required
@@ -80,7 +83,6 @@ def edit(request, id):
     return render(request, "edit.html", {"contact": contact,"cancel_url": "contacts" })
 
 
-
 @login_required
 def delete(request, id):
     contact = get_object_or_404(Profile, id=id)
@@ -90,6 +92,7 @@ def delete(request, id):
     return render(request, "delete_confirm.html", {"contact": contact,"cancel_url": "contacts"})
 
 
+@login_required
 def manage_users(request):
     users = User.objects.all()
     return render(request, 'manage_users.html', {
@@ -106,6 +109,7 @@ def manage_users_delete(request,id):
         return redirect("manage_users")
     return render(request, "manage_users_delete.html", {"user": user})
 
+
 @login_required
 def manage_users_edit(request, id):
     user = get_object_or_404(User, id=id)
@@ -116,6 +120,7 @@ def manage_users_edit(request, id):
         user.save()
         return redirect("manage_users")
     return render(request, "manage_users_edit.html", {"user": user})
+
 
 @login_required
 def manage_contacts(request):
@@ -142,7 +147,6 @@ def manage_contacts_delete(request, id):
         contact.delete()
         return redirect("manage_contacts")
     return render(request, "manage_contacts_delete.html", {"contact": contact,"cancel_url": "contacts"})
-
 
 
 @login_required
