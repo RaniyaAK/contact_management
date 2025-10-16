@@ -59,10 +59,6 @@ def manage_contacts(request):
     return render(request, 'manage_contacts.html', {'contacts': contacts})
 
 
-# @login_required
-# def manage_users(request):
-#     users = User.objects.all()
-#     return render(request, 'admin_manage_users.html', {'users': users})
 
 
 @login_required
