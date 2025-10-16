@@ -25,6 +25,12 @@ urlpatterns = [
     path('manage_users_edit/<int:id>/', views.manage_users_edit, name='manage_users_edit'),
 
 
+    # path('forgot_password', views.forgot_password, name='forgot_password'),
+    # path('reset_password', views.reset_password, name='reset_password'),
+
+
+
+
 ]
 
 

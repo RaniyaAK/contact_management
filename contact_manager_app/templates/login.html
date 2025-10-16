@@ -24,13 +24,14 @@
                 {{ form.username }}
             </div>
 
-          
             <div class="input-group">
                 <label for="id_password">Password:</label>
                 {{ form.password }}
             </div>
 
-            <div style="text-align: center; margin-top: 15px;">
+   
+
+            <div>
                 <button type="submit" class="login-register-btn">Login</button>
             </div>
         </form>
@@ -40,7 +41,6 @@
         </span>
     </div>
 
-   
     <div class="admin-box">
         <h3>Admin Login Details</h3>
         <p><strong>Username:</strong> Raniya</p>
@@ -49,7 +49,6 @@
 </div>
 
 <style>
-
 .login-page-container {
     display: flex;
     flex-direction: column;
@@ -57,7 +56,6 @@
     justify-content: center;
     min-height: 90vh;
 }
-
 
 .login-register-box {
     background: #fff;
@@ -68,14 +66,12 @@
     text-align: center;
 }
 
-
 .input-group {
     display: flex;
     flex-direction: column;
     text-align: left;
     margin-bottom: 15px;
 }
-
 
 .input-group label {
     font-weight: 600;
@@ -91,6 +87,21 @@
     font-size: 14px;
 }
 
+.forgot-password {
+    text-align: left;
+    margin-top: -10px;
+    margin-bottom: 15px;
+}
+
+.forgot-password a {
+    color: #6b8e23;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
 
 .admin-box {
     margin-top: 20px;

@@ -38,7 +38,7 @@ def user_login(request):
 
 @login_required
 def contacts(request):
-    x = Profile.objects.filter(user=request.user)  # x instead of contacts
+    x = Profile.objects.filter(user=request.user)
     return render(request, 'contacts.html', {'x': x})
 
 
@@ -59,10 +59,10 @@ def manage_contacts(request):
     return render(request, 'manage_contacts.html', {'contacts': contacts})
 
 
-@login_required
-def manage_users(request):
-    users = User.objects.all()
-    return render(request, 'admin_manage_users.html', {'users': users})
+# @login_required
+# def manage_users(request):
+#     users = User.objects.all()
+#     return render(request, 'admin_manage_users.html', {'users': users})
 
 
 @login_required
@@ -70,26 +70,40 @@ def contact(request, id):
     contact = get_object_or_404(Profile, id=id)
     return render(request, 'contact.html', {'contact': contact})
 
-
 @login_required
 def edit(request, id):
     contact = get_object_or_404(Profile, id=id)
+
+    # Decide cancel URL dynamically
+    cancel_url = "manage_contacts" if request.user.is_superuser else "contacts"
+
     if request.method == "POST":
         contact.name = request.POST.get("name")
         contact.phone = request.POST.get("phone")
         contact.email = request.POST.get("email")
         contact.save()
-        return redirect("contacts")
-    return render(request, "edit.html", {"contact": contact,"cancel_url": "contacts" })
+        return redirect("contacts") if not request.user.is_superuser else redirect("manage_contacts")
+
+    return render(request, "edit.html", {
+        "contact": contact,
+        "cancel_url": cancel_url
+    })
 
 
 @login_required
 def delete(request, id):
     contact = get_object_or_404(Profile, id=id)
+    cancel_url = "manage_contacts" if request.user.is_superuser else "contacts"
+
     if request.method == "POST":
         contact.delete()
-        return redirect("contacts")
-    return render(request, "delete_confirm.html", {"contact": contact,"cancel_url": "contacts"})
+        return redirect("manage_contacts") if request.user.is_superuser else redirect("contacts")
+
+    return render(request, "delete_confirm.html", {
+        "contact": contact,
+        "cancel_url": cancel_url
+    })
+
 
 
 @login_required
@@ -113,13 +127,19 @@ def manage_users_delete(request,id):
 @login_required
 def manage_users_edit(request, id):
     user = get_object_or_404(User, id=id)
+    cancel_url = "manage_users"
+
     if request.method == "POST":
         user.username = request.POST.get("name")
-        User.phone = request.POST.get("phone")
         user.email = request.POST.get("email")
         user.save()
         return redirect("manage_users")
-    return render(request, "manage_users_edit.html", {"user": user})
+
+    return render(request, "manage_users_edit.html", {
+        "user": user,
+        "cancel_url": cancel_url
+    })
+
 
 
 @login_required
@@ -160,6 +180,13 @@ def admin_dashboard(request):
         'users_count_with_admin':users_count_with_admin
     })
 
+
+# def forgot_password(request):
+#     return render(request,'forgot_password.html')
+
+
+# def reset_password(request):
+#     return render(request,'reset_password.html')
 
 def user_logout(request):
     logout(request)
