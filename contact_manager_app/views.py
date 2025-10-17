@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, UserForm
 from .models import Profile
 from django.contrib.auth.models import User
+from django.contrib import messages
+
 
 
 def register(request):
@@ -177,13 +179,47 @@ def admin_dashboard(request):
     })
 
 
-# def forgot_password(request):
-#     return render(request,'forgot_password.html')
+def forgot_password(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        try:
+            user = User.objects.get(email=email)
+            # Redirect to reset password page with email as parameter
+            return redirect('reset_password', email=user.email)
+        except User.DoesNotExist:
+            messages.error(request, 'No account found with that email address.')
+    return render(request, 'forgot_password.html')
 
 
-# def reset_password(request):
-#     return render(request,'reset_password.html')
+def reset_password(request, email):
+    if request.method == 'POST':
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
+
+        if password != confirm_password:
+            messages.error(request, 'Passwords do not match.')
+        else:
+            try:
+                user = User.objects.get(email=email)
+                user.set_password(password)
+                user.save()
+                messages.success(request, 'Password reset successful. You can now log in.')
+                return redirect('login')
+            except User.DoesNotExist:
+                messages.error(request, 'Invalid user.')
+    return render(request, 'reset_password.html', {'email': email})
+
+
 
 def user_logout(request):
     logout(request)
     return redirect('login')
+
+
+
+
+# def forgot_password(request):
+#     return render(request,'forgot_password.html')
+
+# def reset_password(request):
+#     return render(request,'reset_password.html')

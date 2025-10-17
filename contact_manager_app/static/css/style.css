@@ -81,8 +81,10 @@ input:focus, select:focus {
 }
 
 .login-register-link a {
-    color: #6b8e23;
+    /* color: #6b8e23; */
     text-decoration: none;
+    font-size: 17px;
+    /* font-weight: bold; */
 }
 
 .login-register-link a:hover {
@@ -108,6 +110,21 @@ input {
     text-align: center;
     margin-top: 15px;
     font-size: 16px;
+}
+.back-arrow {
+    position: absolute;
+    top: 30px;     /* distance from top of page */
+    left: 30px;    /* distance from left of page */
+    text-decoration: none;
+    color: #6b8e23;
+    font-weight: 600;
+    font-size: 35px;
+    transition: 0.3s;
+}
+
+
+.back-arrow:hover {
+    transform: translateX(-5px); 
 }
 
 
