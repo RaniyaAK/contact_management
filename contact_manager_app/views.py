@@ -192,6 +192,8 @@ def forgot_password(request):
 
 
 def reset_password(request, email):
+    success = False  # to control message display
+
     if request.method == 'POST':
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
@@ -203,11 +205,12 @@ def reset_password(request, email):
                 user = User.objects.get(email=email)
                 user.set_password(password)
                 user.save()
-                messages.success(request, 'Password reset successful. You can now log in.')
-                return redirect('login')
+                success = True
+                messages.success(request, 'Password reset successful! You can now log in.')
             except User.DoesNotExist:
                 messages.error(request, 'Invalid user.')
-    return render(request, 'reset_password.html', {'email': email})
+
+    return render(request, 'reset_password.html', {'email': email, 'success': success})
 
 
 
