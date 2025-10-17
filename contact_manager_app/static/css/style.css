@@ -113,8 +113,8 @@ input {
 }
 .back-arrow {
     position: absolute;
-    top: 30px;     /* distance from top of page */
-    left: 30px;    /* distance from left of page */
+    top: 30px;    
+    left: 30px;  
     text-decoration: none;
     color: #6b8e23;
     font-weight: 600;
