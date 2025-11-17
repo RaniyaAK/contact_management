@@ -106,10 +106,11 @@ def delete(request, id):
 
 @login_required
 def manage_users(request):
-    users = User.objects.all()
+    users = User.objects.filter(is_superuser=False, is_staff=False)
+
     return render(request, 'manage_users.html', {
         'users': users,
-        'cancel_url': 'manage_users',  # redirect if Cancel is clicked
+        'cancel_url': 'manage_users',
     })
 
 
@@ -122,21 +123,21 @@ def manage_users_delete(request,id):
     return render(request, "manage_users_delete.html", {"user": user})
 
 
-@login_required
-def manage_users_edit(request, id):
-    user = get_object_or_404(User, id=id)
-    cancel_url = "manage_users"
+# @login_required
+# def manage_users_edit(request, id):
+#     user = get_object_or_404(User, id=id)
+#     cancel_url = "manage_users"
 
-    if request.method == "POST":
-        user.username = request.POST.get("name")
-        user.email = request.POST.get("email")
-        user.save()
-        return redirect("manage_users")
+#     if request.method == "POST":
+#         user.username = request.POST.get("name")
+#         user.email = request.POST.get("email")
+#         user.save()
+#         return redirect("manage_users")
 
-    return render(request, "manage_users_edit.html", {
-        "user": user,
-        "cancel_url": cancel_url
-    })
+#     return render(request, "manage_users_edit.html", {
+#         "user": user,
+#         "cancel_url": cancel_url
+#     })
 
 
 
@@ -219,10 +220,3 @@ def user_logout(request):
     return redirect('login')
 
 
-
-
-# def forgot_password(request):
-#     return render(request,'forgot_password.html')
-
-# def reset_password(request):
-#     return render(request,'reset_password.html')

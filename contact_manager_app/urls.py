@@ -22,7 +22,7 @@ urlpatterns = [
 
     path('manage_users/', views.manage_users, name='manage_users'),
     path('manage_users_delete/<int:id>/', views.manage_users_delete, name='manage_users_delete'),
-    path('manage_users_edit/<int:id>/', views.manage_users_edit, name='manage_users_edit'),
+    # path('manage_users_edit/<int:id>/', views.manage_users_edit, name='manage_users_edit'),
 
 
     path('forgot_password', views.forgot_password, name='forgot_password'),

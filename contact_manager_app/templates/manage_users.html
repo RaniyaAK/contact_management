@@ -47,7 +47,6 @@
                     <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
                     <td>
-                        <a href="{% url 'manage_users_edit' user.id %}" class="edit-btn">Edit</a>
                         <a href="{% url 'manage_users_delete' user.id %}" class="delete-btn">Delete</a>
                     </td>
                 </tr>
@@ -252,15 +251,13 @@ tr:hover {
 }
 
 
-.edit-btn, .delete-btn {
+.delete-btn {
     text-decoration: none;
     padding: 6px 12px;
     border-radius: 4px;
     color: #fff;
     font-weight: 500;
 }
-.edit-btn { background-color: #6b8e23; }
-.edit-btn:hover { background-color: #556b2f; }
 .delete-btn { background-color: #b33a3a; }
 .delete-btn:hover { background-color: #8b2a2a; }
 
