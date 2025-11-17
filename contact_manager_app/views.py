@@ -7,7 +7,6 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 
 
-
 def register(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
@@ -62,7 +61,6 @@ def manage_contacts(request):
 
 
 
-
 @login_required
 def contact(request, id):
     contact = get_object_or_404(Profile, id=id)
@@ -72,7 +70,6 @@ def contact(request, id):
 def edit(request, id):
     contact = get_object_or_404(Profile, id=id)
 
-    # Decide cancel URL dynamically
     cancel_url = "manage_contacts" if request.user.is_superuser else "contacts"
 
     if request.method == "POST":
@@ -122,22 +119,6 @@ def manage_users_delete(request,id):
         return redirect("manage_users")
     return render(request, "manage_users_delete.html", {"user": user})
 
-
-# @login_required
-# def manage_users_edit(request, id):
-#     user = get_object_or_404(User, id=id)
-#     cancel_url = "manage_users"
-
-#     if request.method == "POST":
-#         user.username = request.POST.get("name")
-#         user.email = request.POST.get("email")
-#         user.save()
-#         return redirect("manage_users")
-
-#     return render(request, "manage_users_edit.html", {
-#         "user": user,
-#         "cancel_url": cancel_url
-#     })
 
 
 
@@ -193,7 +174,7 @@ def forgot_password(request):
 
 
 def reset_password(request, email):
-    success = False  # to control message display
+    success = False 
 
     if request.method == 'POST':
         password = request.POST.get('password')
