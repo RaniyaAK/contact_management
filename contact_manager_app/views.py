@@ -60,7 +60,6 @@ def manage_contacts(request):
     return render(request, 'manage_contacts.html', {'contacts': contacts})
 
 
-
 @login_required
 def contact(request, id):
     contact = get_object_or_404(Profile, id=id)
@@ -100,7 +99,6 @@ def delete(request, id):
     })
 
 
-
 @login_required
 def manage_users(request):
     users = User.objects.filter(is_superuser=False, is_staff=False)
@@ -118,8 +116,6 @@ def manage_users_delete(request,id):
         user.delete()
         return redirect("manage_users")
     return render(request, "manage_users_delete.html", {"user": user})
-
-
 
 
 @login_required
@@ -193,7 +189,6 @@ def reset_password(request, email):
                 messages.error(request, 'Invalid user.')
 
     return render(request, 'reset_password.html', {'email': email, 'success': success})
-
 
 
 def user_logout(request):
