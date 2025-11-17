@@ -8,6 +8,8 @@ urlpatterns = [
     path('login/',views.user_login,name='login'),
     path('register/',views.register,name='register'),
     path('logout/', views.user_logout, name='logout'),
+    path('forgot_password', views.forgot_password, name='forgot_password'),
+    path('reset_password/<str:email>/', views.reset_password, name='reset_password'),
 
     path('dashboard/admin/', views.admin_dashboard, name='admin_dashboard'),
     
@@ -22,11 +24,8 @@ urlpatterns = [
 
     path('manage_users/', views.manage_users, name='manage_users'),
     path('manage_users_delete/<int:id>/', views.manage_users_delete, name='manage_users_delete'),
-    # path('manage_users_edit/<int:id>/', views.manage_users_edit, name='manage_users_edit'),
 
 
-    path('forgot_password', views.forgot_password, name='forgot_password'),
-    path('reset_password/<str:email>/', views.reset_password, name='reset_password'),
 
 
 

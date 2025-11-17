@@ -162,7 +162,6 @@ def forgot_password(request):
         email = request.POST.get('email')
         try:
             user = User.objects.get(email=email)
-            # Redirect to reset password page with email as parameter
             return redirect('reset_password', email=user.email)
         except User.DoesNotExist:
             messages.error(request, 'No account found with that email address.')
