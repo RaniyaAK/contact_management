@@ -12,8 +12,12 @@
 <div class="login-register-box container">
     <h1>Create Account</h1>
 
-    {% if error_message %}
-        <p class="error-text">{{ error_message }}</p>
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color:red; text-align:center; font-weight:600;">
+                {{ message }}
+            </p>
+        {% endfor %}
     {% endif %}
 
     <form method="POST">
@@ -48,7 +52,5 @@
         Already have an account? <a href="{% url 'login' %}">Login</a>
     </span>
 </div>
-
-
 
 {% endblock %}

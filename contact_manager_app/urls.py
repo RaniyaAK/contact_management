@@ -25,12 +25,6 @@ urlpatterns = [
     path('manage_users/', views.manage_users, name='manage_users'),
     path('manage_users_delete/<int:id>/', views.manage_users_delete, name='manage_users_delete'),
 
-
-
-
-
-
-
 ]
 
 

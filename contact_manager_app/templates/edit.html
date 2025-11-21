@@ -6,6 +6,39 @@
 
 {% block content %}
 
+
+<div class="tasks container">
+    <h1>Edit</h1>
+
+    <form action="{% url 'edit' contact.id %}" method="post">
+        {% csrf_token %}
+
+        <div class="content container">
+            <input type="text" name="name" value="{{contact.name}}" required>
+        </div>
+
+        <div class="content container">
+            <input type="text" name="phone" value="{{contact.phone}}" required>
+        </div>
+
+        <div class="content container">
+            <input type="email" name="email" value="{{contact.email}}" required>
+        </div>
+
+        <div class="buttons container" style="margin-top:20px;">
+            <a href="{% url cancel_url %}">Cancel</a>
+            <button type="submit" class="save_btn">Save</button>
+        </div>
+
+
+    </form>
+
+    {% if contact %}
+
+    {% endif %}
+
+</div>
+
 <style>
 
 body {
@@ -95,38 +128,5 @@ body {
 }
 
 </style>
-
-
-<div class="tasks container">
-    <h1>Edit</h1>
-
-    <form action="{% url 'edit' contact.id %}" method="post">
-        {% csrf_token %}
-
-        <div class="content container">
-            <input type="text" name="name" value="{{contact.name}}" required>
-        </div>
-
-        <div class="content container">
-            <input type="text" name="phone" value="{{contact.phone}}" required>
-        </div>
-
-        <div class="content container">
-            <input type="email" name="email" value="{{contact.email}}" required>
-        </div>
-
-        <div class="buttons container" style="margin-top:20px;">
-            <a href="{% url cancel_url %}">Cancel</a>
-            <button type="submit" class="save_btn">Save</button>
-        </div>
-
-
-    </form>
-
-    {% if contact %}
-
-    {% endif %}
-
-</div>
 
 {% endblock %}

@@ -4,6 +4,35 @@
 
 {% block content %}
 
+
+<div class="tasks container">
+
+    <h1>Edit</h1>
+
+    <form action="{% url 'manage_users_edit' user.id %}" method="post">
+        {% csrf_token %}
+
+        <div class="content container">
+            <input type="text" name="name" value="{{user.username}}" required>
+        </div>
+
+        <div class="content container">
+            <input type="email" name="email" value="{{user.email}}" required>
+        </div>
+
+        <div class="buttons container" style="margin-top:20px;">
+            <a href="{% url 'manage_users' %}">Cancel</a>
+            <button type="submit" class="save_btn">Save</button>
+        </div>
+
+    </form>
+
+    {% if contact %}
+
+    {% endif %}
+
+</div>
+
 <style>
     
 body {
@@ -94,34 +123,5 @@ body {
 }
 
 </style>
-
-
-<div class="tasks container">
-
-    <h1>Edit</h1>
-
-    <form action="{% url 'manage_users_edit' user.id %}" method="post">
-        {% csrf_token %}
-
-        <div class="content container">
-            <input type="text" name="name" value="{{user.username}}" required>
-        </div>
-
-        <div class="content container">
-            <input type="email" name="email" value="{{user.email}}" required>
-        </div>
-
-        <div class="buttons container" style="margin-top:20px;">
-            <a href="{% url 'manage_users' %}">Cancel</a>
-            <button type="submit" class="save_btn">Save</button>
-        </div>
-
-    </form>
-
-    {% if contact %}
-
-    {% endif %}
-
-</div>
 
 {% endblock %}

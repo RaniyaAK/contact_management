@@ -1,23 +1,53 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm, UserForm
-from .models import Profile
-from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth.models import User
+from .models import Profile
+from .forms import LoginForm, UserForm
+from .forms import UserForm
 
 
 def register(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = UserForm(request.POST)
+
         if form.is_valid():
-            user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password'])
-            user.save()
-            return redirect('login')
+            username = form.cleaned_data["username"]
+            email = form.cleaned_data["email"]
+            password = form.cleaned_data["password"]
+            confirm_password = form.cleaned_data["confirm_password"]
+
+            if password != confirm_password:
+                messages.error(request, "Passwords do not match")
+                return render(request, "register.html", {"form": form})
+
+            if User.objects.filter(username=username).exists():
+                messages.error(request, "Username already exists")
+                return render(request, "register.html", {"form": form})
+
+            if User.objects.filter(email=email).exists():
+                messages.error(request, "Email already registered")
+                return render(request, "register.html", {"form": form})
+
+            User.objects.create_user(
+                username=username,
+                email=email,
+                password=password
+            )
+
+            messages.success(request, "Account created successfully. Please log in.")
+            return redirect("login")
+
+        else:
+            first_error = next(iter(form.errors.values()))[0]
+            messages.error(request, first_error)
+            return render(request, "register.html", {"form": form})
+
     else:
         form = UserForm()
-    return render(request, 'register.html', {'form': form})
+
+    return render(request, "register.html", {"form": form})
 
 
 def user_login(request):

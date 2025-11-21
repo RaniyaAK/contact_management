@@ -5,6 +5,21 @@
 
 {% block content %}
 
+<div class="delete-card">
+
+    <h3>Are you sure you want to delete <strong>"{{ user.username }}"</strong>?</h3>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="buttons container" style="margin-top:20px;">
+            <a href="{% url 'manage_users' %}">Cancel</a>
+            <button type="submit" class="delete-btn">Delete</button>
+        </div>
+
+    </form>
+</div>
+
 
 <style>
 
@@ -94,23 +109,5 @@ body {
     background-color: #c4d1a5;
 }
 </style>
-
-
-
-
-<div class="delete-card">
-
-    <h3>Are you sure you want to delete <strong>"{{ user.username }}"</strong>?</h3>
-
-    <form method="post">
-        {% csrf_token %}
-
-        <div class="buttons container" style="margin-top:20px;">
-            <a href="{% url 'manage_users' %}">Cancel</a>
-            <button type="submit" class="delete-btn">Delete</button>
-        </div>
-
-    </form>
-</div>
 
 {% endblock %}

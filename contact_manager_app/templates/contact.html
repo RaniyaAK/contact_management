@@ -9,7 +9,6 @@
     <form action="{% url 'add_contacts' %}" method="post">
         {% csrf_token %}
 
-        <!-- <div class="content container"> -->
 
        <div class="content container">
           <input type = "text" name="contact" value="{{contact.name}}">
@@ -28,7 +27,6 @@
        </div>
 
 
-        <!-- </div> -->
 
         <div class="buttons container">
 

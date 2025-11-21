@@ -5,6 +5,19 @@
 
 {% block content %}
 
+<div class="delete-card">
+    <h3>Are you sure you want to delete <strong>"{{ contact.name }}"</strong>?</h3>
+    <form method="post">
+        {% csrf_token %}
+        <div class="buttons container" style="margin-top:20px;">
+            <a href="{% url cancel_url %}">Cancel</a>
+            <button type="submit" class="delete-btn">Delete</button>
+        </div>
+    </form>
+
+</div>
+
+
 <style>
 
 body {
@@ -93,17 +106,5 @@ body {
 }
 
 </style>
-
-<div class="delete-card">
-    <h3>Are you sure you want to delete <strong>"{{ contact.name }}"</strong>?</h3>
-    <form method="post">
-        {% csrf_token %}
-        <div class="buttons container" style="margin-top:20px;">
-            <a href="{% url cancel_url %}">Cancel</a>
-            <button type="submit" class="delete-btn">Delete</button>
-        </div>
-    </form>
-
-</div>
 
 {% endblock %}
